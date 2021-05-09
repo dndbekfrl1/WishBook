@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jina.wishbook.Calendar.CalendarFragment;
+import com.jina.wishbook.WishList.WishFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -48,4 +52,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
+
+
 }

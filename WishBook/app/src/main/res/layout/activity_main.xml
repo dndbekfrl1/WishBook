@@ -7,8 +7,12 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+<!--    <include-->
+<!--        layout="@layout/toolbar"-->
+<!--        android:id="@+id/toolbar"/>-->
     <FrameLayout android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="24dp"
         android:id="@+id/flagment_container"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
