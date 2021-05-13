@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.jina.wishbook.R;
 
@@ -15,9 +16,8 @@ import java.io.IOException;
 
 public class CameraActivity extends AppCompatActivity  {
     CameraSurfaceView surfaceView;
-
-
     Button sample_scan;
+    BottomSheet bottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +26,11 @@ public class CameraActivity extends AppCompatActivity  {
 
         sample_scan = findViewById(R.id.sample_scan);
         surfaceView= new CameraSurfaceView(this, (SurfaceView) findViewById(R.id.camera_view));
-
+        bottomSheet=new BottomSheet();
         sample_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                bottomSheet.show(getSupportFragmentManager(),"TAG");
             }
         });
 
