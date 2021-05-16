@@ -1,32 +1,51 @@
 package com.jina.wishbook.Camera;
 
-import android.app.Dialog;
-import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.room.Room;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.jina.wishbook.Database.Book;
+import com.jina.wishbook.Database.BookDAO;
+import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 
-import java.util.zip.Inflater;
+import java.util.Date;
+import java.util.List;
 
 public class BottomSheet extends BottomSheetDialogFragment {
     private WebView webView;
     private WebSettings webSettings;
+
+    private Button addWish;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setStyle(STYLE_NORMAL,R.style.AppBottomSheetDialogTheme);
         View v = inflater.inflate(R.layout.fragment_dialog,container,false);
+
+        addWish =v.findViewById(R.id.btn_add_wish);
+        addWish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sampleData();
+
+            }
+        });
+
 
         webView = v.findViewById(R.id.webview);
 
@@ -38,8 +57,21 @@ public class BottomSheet extends BottomSheetDialogFragment {
         return v;
     }
 
-    public BottomSheet() {
-        super();
+    public void  sampleData(){
+        String title = "demo title";
+        String author="demo author";
+        int cover = R.drawable.book1;
+        String date = null;
+
+        Book book = new Book();
+        book.bookTitle=title;
+        book.author=author;
+        book.bookCover=cover;
+        book.date=date;
+
+        BookDatabase db = BookDatabase.getDatabase(this.getContext());
+        new InsertAsyncTask(db.bookDAO()).execute(book);
+
     }
 
 
@@ -50,4 +82,17 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
     }
 
+
+    public static class InsertAsyncTask extends AsyncTask<Book, Void, Void>{
+        private BookDAO bookDAO;
+        public InsertAsyncTask(BookDAO bookDAO){
+            this.bookDAO = bookDAO;
+        }
+        @Override
+        protected Void doInBackground(Book... books) {
+            bookDAO.insertBook(books[0]);
+            return null;
+        }
+    }
 }
+

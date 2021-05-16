@@ -1,6 +1,7 @@
 package com.jina.wishbook.WishList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapter.CustomViewHolder> {
 
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
-
-    public WishListViewAdapter(ArrayList<ListViewItem> list){
-        this.listViewItemList = list;
-    }
+    private List<Book> listViewItemList = null;
+    private int NumOfdata=0;
 
     public class CustomViewHolder extends RecyclerView.ViewHolder{
         protected TextView bookTitle;
@@ -45,13 +45,20 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull WishListViewAdapter.CustomViewHolder holder, int position) {
-        holder.bookCover.setImageResource(listViewItemList.get(position).getBookCover());
-        holder.bookTitle.setText(listViewItemList.get(position).getBookTitle());
+        holder.bookCover.setImageResource(listViewItemList.get(position).bookCover);
+        holder.bookTitle.setText(listViewItemList.get(position).bookTitle);
     }
 
     @Override
     public int getItemCount() {
-        return listViewItemList.size();
+        return NumOfdata;
+    }
+
+    public void setListViewItemList(List<Book> books){
+        listViewItemList=books;
+        NumOfdata=listViewItemList.size();
+        Log.e("dddddDDD",""+NumOfdata);
+        notifyDataSetChanged();
     }
 
 
