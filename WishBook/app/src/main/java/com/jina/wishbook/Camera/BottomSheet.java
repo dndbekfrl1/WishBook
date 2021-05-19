@@ -31,10 +31,15 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
     private Button addWish;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(STYLE_NORMAL,R.style.AppBottomSheetDialogTheme);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setStyle(STYLE_NORMAL,R.style.AppBottomSheetDialogTheme);
         View v = inflater.inflate(R.layout.fragment_dialog,container,false);
 
         addWish =v.findViewById(R.id.btn_add_wish);
@@ -42,7 +47,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 sampleData();
-
+                addWish.setText("위시에 담았습니다.");
             }
         });
 
@@ -71,6 +76,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
         BookDatabase db = BookDatabase.getDatabase(this.getContext());
         new InsertAsyncTask(db.bookDAO()).execute(book);
+
 
     }
 
