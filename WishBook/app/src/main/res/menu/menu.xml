@@ -4,10 +4,7 @@
         android:id="@+id/home"
         android:enabled="true"
         android:title="home" />
-    <item
-        android:id="@+id/camera"
-        android:enabled="true"
-        android:title="camera"/>
+
     <item
         android:id="@+id/wish"
         android:enabled="true"
