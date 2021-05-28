@@ -2,7 +2,6 @@ package com.jina.wishbook.Camera;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +12,12 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.room.Room;
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.Database.BookDAO;
 import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 
-import java.util.Date;
-import java.util.List;
 
 public class BottomSheet extends BottomSheetDialogFragment {
     private WebView webView;
@@ -77,10 +71,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
         BookDatabase db = BookDatabase.getDatabase(this.getContext());
         new InsertAsyncTask(db.bookDAO()).execute(book);
 
-
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

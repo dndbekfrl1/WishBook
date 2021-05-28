@@ -16,7 +16,8 @@ import java.io.IOException;
 
 public class CameraActivity extends AppCompatActivity  {
     CameraSurfaceView surfaceView;
-    Button sample_scan;
+    Button sample_scan; //sample data 만들기용캔
+    Button btn_scan;
     BottomSheet bottomSheet;
 
     @Override
@@ -24,9 +25,17 @@ public class CameraActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        btn_scan=findViewById(R.id.btn_scan);
         sample_scan = findViewById(R.id.sample_scan);
         surfaceView= new CameraSurfaceView(this, (SurfaceView) findViewById(R.id.camera_view));
         bottomSheet=new BottomSheet();
+
+        btn_scan.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         sample_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,5 +44,7 @@ public class CameraActivity extends AppCompatActivity  {
         });
 
     }
+
+
 
 }

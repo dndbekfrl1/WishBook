@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "32915330214",
+    "firebase_url": "https://wishbook-1621966735598-default-rtdb.firebaseio.com",
+    "project_id": "wishbook-1621966735598",
+    "storage_bucket": "wishbook-1621966735598.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32915330214:android:0f4463b1ed2b9607bdd067",
+        "android_client_info": {
+          "package_name": "com.jina.wishook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32915330214-jj5713d6lkrfnpmou901dhbgrokdnua3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmj8aJwr0XdLdjsjNVK5JIyhHkMxwWpwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32915330214-jj5713d6lkrfnpmou901dhbgrokdnua3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
