@@ -2,7 +2,6 @@ package com.jina.wishbook.Camera;
 
 import android.content.Context;
 import android.hardware.Camera;
-import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -20,9 +19,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     }
 
 
-
-
-
     private void init(Context context, SurfaceView surfaceView){
         camera = Camera.open();
         holder = surfaceView.getHolder();
@@ -32,7 +28,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         camera = Camera.open();
-
         try {
             camera.setPreviewDisplay(holder);
         } catch (IOException e) {
