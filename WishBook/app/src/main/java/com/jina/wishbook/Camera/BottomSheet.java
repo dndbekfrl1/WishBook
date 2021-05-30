@@ -2,6 +2,7 @@ package com.jina.wishbook.Camera;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.Database.BookDAO;
@@ -22,8 +25,8 @@ import com.jina.wishbook.R;
 public class BottomSheet extends BottomSheetDialogFragment {
     private WebView webView;
     private WebSettings webSettings;
-
     private Button addWish;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class BottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dialog,container,false);
+
+        String tt = getArguments().getString("bookTitle");
+        Log.e("EE",tt);
 
         addWish =v.findViewById(R.id.btn_add_wish);
         addWish.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +81,11 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
     }
+
 
 
     public static class InsertAsyncTask extends AsyncTask<Book, Void, Void>{

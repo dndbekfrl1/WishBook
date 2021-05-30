@@ -1,10 +1,8 @@
 package com.jina.wishbook.Camera;
 
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +10,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.pm.*;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -51,13 +47,10 @@ public class CameraActivity extends AppCompatActivity  {
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
     private static final String TAG = "ㅇ";
 
-
     CameraSurfaceView surfaceView;
     Button sample_scan; //sample data 만들기용캔
     Button btn_scan;
     BottomSheet bottomSheet;
-
-    ImageView imgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +100,7 @@ public class CameraActivity extends AppCompatActivity  {
 
         // Do the real work in an async task, because we need to use the network anyway
         try {
-            AsyncTask<Object, Void, String> labelDetectionTask = new LableDetectionTask(this, prepareAnnotationRequest(bitmap));
+            AsyncTask<Object, Void, String> labelDetectionTask = new LableDetectionTask(this, prepareAnnotationRequest(bitmap),bottomSheet);
             labelDetectionTask.execute();
         } catch (IOException e) {
             Log.d(TAG, "failed to make API request because of other IOException " +
@@ -183,14 +176,16 @@ public class CameraActivity extends AppCompatActivity  {
         return annotateRequest;
     }
 
-
-    private static class LableDetectionTask extends AsyncTask<Object, Void, String> {
+    private class LableDetectionTask extends AsyncTask<Object, Void, String> {
         private final WeakReference<CameraActivity> mActivityWeakReference;
         private Vision.Images.Annotate mRequest;
+        private BottomSheet mbottomSheet;
 
-        LableDetectionTask(CameraActivity activity, Vision.Images.Annotate annotate) {
+
+        LableDetectionTask(CameraActivity activity, Vision.Images.Annotate annotate, BottomSheet bottomSheet) {
             mActivityWeakReference = new WeakReference<>(activity);
             mRequest = annotate;
+            mbottomSheet = bottomSheet;
         }
 
         @Override
@@ -212,6 +207,12 @@ public class CameraActivity extends AppCompatActivity  {
         protected void onPostExecute(String result) {
             CameraActivity activity = mActivityWeakReference.get();
             if (activity != null && !activity.isFinishing()) {
+                Log.e("done", result);
+
+                bottomSheet.show(getSupportFragmentManager(),"DD");
+                Bundle bundle = new Bundle();
+                bundle.putString("bookTitle",result);
+                bottomSheet.setArguments(bundle);
             }
         }
     }
@@ -221,12 +222,10 @@ public class CameraActivity extends AppCompatActivity  {
         List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
         if (labels != null) {
             message = labels.get(0).getDescription();
-            Log.e("DAWFEF",message);
         } else {
             message = "nothing";
         }
 
-        Log.e("ddd",message);
         return message;
 
     }
