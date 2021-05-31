@@ -1,7 +1,10 @@
 package com.jina.wishbook.Camera;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -179,13 +183,20 @@ public class CameraActivity extends AppCompatActivity  {
     private class LableDetectionTask extends AsyncTask<Object, Void, String> {
         private final WeakReference<CameraActivity> mActivityWeakReference;
         private Vision.Images.Annotate mRequest;
-        private BottomSheet mbottomSheet;
-
+        CustomProgressDialog asyncDialog = new CustomProgressDialog(CameraActivity.this);
 
         LableDetectionTask(CameraActivity activity, Vision.Images.Annotate annotate, BottomSheet bottomSheet) {
             mActivityWeakReference = new WeakReference<>(activity);
             mRequest = annotate;
-            mbottomSheet = bottomSheet;
+            asyncDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            //asyncDialog.setProgressStyle();
+            asyncDialog.show();
+            super.onPreExecute();
         }
 
         @Override
@@ -207,6 +218,7 @@ public class CameraActivity extends AppCompatActivity  {
         protected void onPostExecute(String result) {
             CameraActivity activity = mActivityWeakReference.get();
             if (activity != null && !activity.isFinishing()) {
+                asyncDialog.dismiss();
                 Log.e("done", result);
 
                 bottomSheet.show(getSupportFragmentManager(),"DD");

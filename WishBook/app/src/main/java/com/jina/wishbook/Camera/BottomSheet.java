@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.jina.wishbook.BookAPI.BookAPI;
 import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.Database.BookDAO;
 import com.jina.wishbook.Database.BookDatabase;
@@ -38,26 +39,30 @@ public class BottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dialog,container,false);
-
-        String tt = getArguments().getString("bookTitle");
-        Log.e("EE",tt);
+        String bookTitle = getArguments().getString("bookTitle");
 
         addWish =v.findViewById(R.id.btn_add_wish);
         addWish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sampleData();
-                addWish.setText("위시에 담았습니다.");
+                try{
+                    SearchAPI searchAPI = new SearchAPI();
+                    searchAPI.execute(bookTitle);
+                    addWish.setText("위시에 담았습니다.");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
 
         webView = v.findViewById(R.id.webview);
-
         webView.setWebViewClient(new WebViewClient());
         webSettings=webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.naver.com/");
+        String Url = "https://book.naver.com/search/search.nhn?&query="+bookTitle;
+        webView.loadUrl(Url);
 
         return v;
     }
@@ -86,8 +91,6 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
     }
 
-
-
     public static class InsertAsyncTask extends AsyncTask<Book, Void, Void>{
         private BookDAO bookDAO;
         public InsertAsyncTask(BookDAO bookDAO){
@@ -99,5 +102,22 @@ public class BottomSheet extends BottomSheetDialogFragment {
             return null;
         }
     }
+
+    public static class SearchAPI extends AsyncTask<String,String,String>{
+        BookAPI bookAPI;
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String book_title = strings[0];
+            bookAPI = new BookAPI(book_title);
+            return bookAPI.searchAPI();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
+
 }
 

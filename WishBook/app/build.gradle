@@ -22,6 +22,8 @@ android {
         }
         buildTypes.each {
             it.buildConfigField ('String', 'API_KEY', '"AIzaSyA_rHc8UpCFzMaNexUxIL-JIattkZphHsw"')
+            it.buildConfigField('String','NAVER_SEARCH_ID','"2Ame9kykI8dCEUi9wXWt"')
+            it.buildConfigField('String','NAVER_SEARCH_SCRET','"fJEF32yMUr"')
         }
     }
     compileOptions {
