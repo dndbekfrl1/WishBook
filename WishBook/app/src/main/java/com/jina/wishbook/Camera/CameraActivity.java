@@ -52,7 +52,6 @@ public class CameraActivity extends AppCompatActivity  {
     private static final String TAG = "ㅇ";
 
     CameraSurfaceView surfaceView;
-    Button sample_scan; //sample data 만들기용캔
     Button btn_scan;
     BottomSheet bottomSheet;
 
@@ -64,8 +63,6 @@ public class CameraActivity extends AppCompatActivity  {
         btn_scan=findViewById(R.id.btn_scan);
         surfaceView= new CameraSurfaceView(this, (SurfaceView) findViewById(R.id.camera_view));
         bottomSheet=new BottomSheet();
-
-
 
         btn_scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +78,6 @@ public class CameraActivity extends AppCompatActivity  {
             }
         });
 
-        sample_scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheet.show(getSupportFragmentManager(),"TAG");
-            }
-        });
     }
 
     public void uploadImage(Bitmap bitmap) {
