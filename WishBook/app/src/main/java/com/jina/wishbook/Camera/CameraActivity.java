@@ -62,7 +62,6 @@ public class CameraActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_camera);
 
         btn_scan=findViewById(R.id.btn_scan);
-        sample_scan = findViewById(R.id.sample_scan);
         surfaceView= new CameraSurfaceView(this, (SurfaceView) findViewById(R.id.camera_view));
         bottomSheet=new BottomSheet();
 
