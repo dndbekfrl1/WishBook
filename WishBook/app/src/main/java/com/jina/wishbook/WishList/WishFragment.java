@@ -60,6 +60,7 @@ public class WishFragment extends Fragment {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this.getContext(),new LinearLayoutManager(this.getContext()).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+
         return view;
     }
 

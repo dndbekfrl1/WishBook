@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,22 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CalendarView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.jina.wishbook.Camera.CameraActivity;
 import com.jina.wishbook.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 
 
 public class CalendarFragment extends Fragment {
@@ -45,6 +40,7 @@ public class CalendarFragment extends Fragment {
     ArrayList<CalData> arrData;
     Calendar mCal;
     Calendar mCalToday;
+    TextView dateTitle;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -58,6 +54,9 @@ public class CalendarFragment extends Fragment {
     }
 
     public void setCalendarDate(int month, GridView gridView){
+        Log.e("", String.valueOf(Calendar.YEAR));
+
+
         arrData= new ArrayList<CalData>();
 
         mCalToday.set(mCal.get(Calendar.YEAR), month-1,1);
@@ -76,6 +75,8 @@ public class CalendarFragment extends Fragment {
             mCalToday.set(mCal.get(Calendar.YEAR), month-1, (i+1));
             arrData.add(new CalData((i+1), mCalToday.get(Calendar.DAY_OF_WEEK)));
         }
+
+        dateTitle.setText(mCal.get(Calendar.YEAR)+"년 "+(mCal.get(Calendar.MONTH) + 1)+"월");
 
         adapter = new DateAdapter(this.getContext(),arrData);
         gridView.setAdapter(adapter);
@@ -108,9 +109,11 @@ public class CalendarFragment extends Fragment {
         toolbar.setTitle("여기는 캘린더");
 
 
+
         mCalToday = Calendar.getInstance();
         mCal = Calendar.getInstance();
         gridView = view.findViewById(R.id.calendar_grid);
+        dateTitle = view.findViewById(R.id.date_title);
 
         setCalendarDate(mCal.get(Calendar.MONTH)+1,gridView);
 

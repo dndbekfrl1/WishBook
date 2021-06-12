@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +31,15 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
             super(view);
             this.bookTitle=view.findViewById(R.id.book_title);
             this.bookCover=view.findViewById(R.id.book_cover);
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.d("Recyclerview", "position = "+ getAdapterPosition());
+                    //TODO: 롱클릭 -> 삭제/구매
+                    return false;
+                }
+            });
         }
     }
 
@@ -60,6 +68,7 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
         Log.e("dddddDDD",""+NumOfdata);
         notifyDataSetChanged();
     }
+
 
 
 }
