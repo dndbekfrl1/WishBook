@@ -76,4 +76,10 @@ dependencies {
 
     //duplicate modules err
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //material calendar
+    implementation 'com.github.prolificinteractive:material-calendarview:${version}'
 }

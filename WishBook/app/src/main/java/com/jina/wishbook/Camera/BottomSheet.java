@@ -13,7 +13,6 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jina.wishbook.BookAPI.BookAPI;
@@ -22,11 +21,17 @@ import com.jina.wishbook.Database.BookDAO;
 import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 
+import java.util.ArrayList;
+
 
 public class BottomSheet extends BottomSheetDialogFragment {
-    private WebView webView;
+    static WebView webView;
     private WebSettings webSettings;
     private Button addWish;
+    static String bookTitle;
+    static String bookLink;
+    static String bookAuthor;
+    static String bookCover;
 
 
     @Override
@@ -39,49 +44,43 @@ public class BottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dialog,container,false);
-        String bookTitle = getArguments().getString("bookTitle");
+
+        bookTitle = getArguments().getString("bookTitle");
+        webView = v.findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient());
+        webSettings=webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        SearchAPI searchAPI = new SearchAPI();
+        searchAPI.execute(bookTitle);
 
         addWish =v.findViewById(R.id.btn_add_wish);
         addWish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sampleData();
-                try{
-                    SearchAPI searchAPI = new SearchAPI();
-                    searchAPI.execute(bookTitle);
-                    addWish.setText("위시에 담았습니다.");
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                insertBookDB();
+                addWish.setText("위시에 담았습니다.");
             }
         });
-
-
-        webView = v.findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient());
-        webSettings=webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        String Url = "https://book.naver.com/search/search.nhn?&query="+bookTitle;
-        webView.loadUrl(Url);
 
         return v;
     }
 
-    public void  sampleData(){
-        String title = "demo title";
-        String author="demo author";
+    public void  insertBookDB(){
+        /*
+          TODO:데이터베이스 저장 -done
+          TODO:사진 저장 -done
+          TODO:위시담기 UI 변경 -done
+         */
         int cover = R.drawable.book1;
-        String date = null;
 
         Book book = new Book();
-        book.bookTitle=title;
-        book.author=author;
-        book.bookCover=cover;
-        book.date=date;
+        book.bookTitle=bookTitle;
+        book.author=bookAuthor;
+        book.bookCover=bookCover;
 
         BookDatabase db = BookDatabase.getDatabase(this.getContext());
         new InsertAsyncTask(db.bookDAO()).execute(book);
-
     }
 
     @Override
@@ -103,21 +102,35 @@ public class BottomSheet extends BottomSheetDialogFragment {
         }
     }
 
-    public static class SearchAPI extends AsyncTask<String,String,String>{
+
+    public static class SearchAPI extends AsyncTask<String, String, ArrayList<String>> {
         BookAPI bookAPI;
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected ArrayList<String> doInBackground(String... strings) {
             String book_title = strings[0];
             bookAPI = new BookAPI(book_title);
             return bookAPI.searchAPI();
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(ArrayList<String> s) {
             super.onPostExecute(s);
+            Log.e("onPostExecute",s.get(0)+s.get(1)+s.get(2));
+
+            /*
+            TODO:webview 링크열기 -- done 근데 느림 ㅅㅂ
+             */
+
+            bookTitle = s.get(0);
+            bookLink = s.get(1);
+            bookAuthor = s.get(2);
+            bookCover = s.get(3);
+
+            webView.loadUrl(bookLink);
         }
     }
+
 
 }
 

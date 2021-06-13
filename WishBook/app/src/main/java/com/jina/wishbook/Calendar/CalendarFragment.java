@@ -32,9 +32,9 @@ import java.util.Calendar;
 
 
 public class CalendarFragment extends Fragment {
+    //TODO: 구매 선택시 캘린더에 반영
 
     Toolbar toolbar;
-
     GridView gridView;
     DateAdapter adapter;
     ArrayList<CalData> arrData;

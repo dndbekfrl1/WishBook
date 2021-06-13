@@ -1,11 +1,11 @@
 package com.jina.wishbook.WishList;
 
-import android.content.Context;
-import android.util.Log;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jina.wishbook.Database.Book;
+import com.jina.wishbook.Database.BookDAO;
+import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,21 +30,17 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
 
     public class CustomViewHolder extends RecyclerView.ViewHolder{
         protected TextView bookTitle;
+        protected TextView bookAuthor;
+        protected TextView bookId;
         protected ImageView bookCover;
+
 
         public CustomViewHolder(@NonNull View view) {
             super(view);
             this.bookTitle=view.findViewById(R.id.book_title);
+            this.bookAuthor=view.findViewById(R.id.book_author);
             this.bookCover=view.findViewById(R.id.book_cover);
-
-            view.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Log.d("Recyclerview", "position = "+ getAdapterPosition());
-                    //TODO: 롱클릭 -> 삭제/구매
-                    return false;
-                }
-            });
+            this.bookId = view.findViewById(R.id.book_id);
         }
     }
 
@@ -53,8 +54,46 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull WishListViewAdapter.CustomViewHolder holder, int position) {
-        holder.bookCover.setImageResource(listViewItemList.get(position).bookCover);
+        Picasso.get().load(listViewItemList.get(position).bookCover).into(holder.bookCover);
         holder.bookTitle.setText(listViewItemList.get(position).bookTitle);
+        holder.bookAuthor.setText(listViewItemList.get(position).author);
+
+        int bookId = listViewItemList.get(position).id;
+        BookDatabase db = BookDatabase.getDatabase(holder.itemView.getContext());
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //TODO: 롱클릭 -> 삭제/구매 dialog 등장 -done
+                //TODO: 구매 선택시 디비 반영 -done
+                //TODO: 삭제 선택시 디비에서 삭제 -done
+
+                AlertDialog.Builder dlg = new AlertDialog.Builder(holder.itemView.getContext());
+                dlg.setTitle("책 설정변경").setMessage("선택하세요");
+                dlg.setPositiveButton("구매했습니당><", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Date date = new Date();
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String today = df.format(date);
+                        int bought = 1;
+
+                        new updateAsyncTask(db.bookDAO()).execute(today,bought,bookId);
+                    }
+                });
+                dlg.setNegativeButton("삭제할래용", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new deletetAsyncTask(db.bookDAO()).execute(bookId);
+                    }
+                });
+
+                dlg.create();
+                dlg.show();
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -65,10 +104,38 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
     public void setListViewItemList(List<Book> books){
         listViewItemList=books;
         NumOfdata=listViewItemList.size();
-        Log.e("dddddDDD",""+NumOfdata);
         notifyDataSetChanged();
     }
 
+    public static class updateAsyncTask extends AsyncTask<Object, Void, Void> {
+        private BookDAO bookDAO;
+        public updateAsyncTask(BookDAO bookDAO){
+            this.bookDAO = bookDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+            String date = (String) objects[0];
+            int bought = (int) objects[1];
+            int id = (int) objects[2];
+
+            bookDAO.updateBook(date, bought, id);
+            return null;
+        }
+    }
+
+    public static class deletetAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private BookDAO bookDAO;
+        public deletetAsyncTask(BookDAO bookDAO){
+            this.bookDAO = bookDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... id) {
+            bookDAO.deleteBook(id[0]);
+            return null;
+        }
+    }
 
 
 }

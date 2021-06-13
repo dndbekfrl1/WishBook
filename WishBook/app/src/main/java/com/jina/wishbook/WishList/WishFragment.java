@@ -29,14 +29,9 @@ public class WishFragment extends Fragment {
     private RecyclerView recyclerView ;
     private WishListViewAdapter adapter;
 
-
-
-
     public WishFragment() {
 
     }
-
-
 
     @Nullable
     @Override

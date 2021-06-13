@@ -48,6 +48,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="저자" />
+
+            <TextView
+                android:id="@+id/book_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="1" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
