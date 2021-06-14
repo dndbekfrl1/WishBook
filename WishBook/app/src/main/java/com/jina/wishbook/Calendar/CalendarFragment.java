@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -44,9 +45,7 @@ public class CalendarFragment extends Fragment {
     private int[] dateArr;
 
     public CalendarFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,7 +95,6 @@ public class CalendarFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu,inflater);
         inflater.inflate(R.menu.menu_camera,menu);
-        Log.e("oncreateoptionsmenu","DD");
     }
 
     //카메라 스캔 실행
@@ -108,19 +106,15 @@ public class CalendarFragment extends Fragment {
                 startActivity(intent);
                 return true;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-
-        toolbar = getActivity().findViewById(R.id.toolbar);
-//        toolbar.setTitle("여기는 캘린더");
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         mCalToday = Calendar.getInstance();
         mCal = Calendar.getInstance();
