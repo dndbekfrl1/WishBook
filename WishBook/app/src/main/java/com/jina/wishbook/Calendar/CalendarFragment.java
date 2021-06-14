@@ -117,8 +117,8 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("여기는 캘린더");
+//        toolbar = getActivity().findViewById(R.id.toolbar);
+//        toolbar.setTitle("여기는 캘린더");
 
         mCalToday = Calendar.getInstance();
         mCal = Calendar.getInstance();
@@ -190,10 +190,6 @@ class DateAdapter extends BaseAdapter {
             if(arrData.get(position).getDayofweek() == 1)
             {
                 ViewText.setTextColor(Color.RED);
-            }
-            else if(arrData.get(position).getDayofweek() == 7)
-            {
-                ViewText.setTextColor(Color.BLUE);
             }
             else
             {

@@ -3,12 +3,14 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:title="home" />
+        android:icon="@drawable/home"
+        android:title="구매" />
 
     <item
         android:id="@+id/wish"
         android:enabled="true"
-        android:title="wish"
+        android:icon="@drawable/wish"
+        android:title="위시"
         />
 
 </menu>
