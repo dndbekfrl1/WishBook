@@ -1,6 +1,6 @@
-TODO: tool bar 유아이 변경
+TODO: tool bar 유아이 변경 done
  - 폰트 사이즈 볼드 done
- - 카메라 아이콘 작게
+ - 카메라 아이콘 작게 done
  - ㅅㅂ 왜 카메라 버튼 사라짐? done
 
 TODO: 위시 화면 done
