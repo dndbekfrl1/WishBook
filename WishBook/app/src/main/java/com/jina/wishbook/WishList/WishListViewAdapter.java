@@ -2,6 +2,7 @@ package com.jina.wishbook.WishList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.jina.wishbook.Database.BookDAO;
 import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +34,6 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
     public class CustomViewHolder extends RecyclerView.ViewHolder{
         protected TextView bookTitle;
         protected TextView bookAuthor;
-        protected TextView bookId;
         protected ImageView bookCover;
 
 
@@ -41,7 +42,6 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
             this.bookTitle=view.findViewById(R.id.book_title);
             this.bookAuthor=view.findViewById(R.id.book_author);
             this.bookCover=view.findViewById(R.id.book_cover);
-            this.bookId = view.findViewById(R.id.book_id);
         }
     }
 
@@ -55,7 +55,7 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull WishListViewAdapter.CustomViewHolder holder, int position) {
-        Picasso.get().load(listViewItemList.get(position).bookCover).into(holder.bookCover);
+        Picasso.get().load(listViewItemList.get(position).bookCover).fit().into(holder.bookCover);
         holder.bookTitle.setText(listViewItemList.get(position).bookTitle);
         holder.bookAuthor.setText(listViewItemList.get(position).author);
 
@@ -65,9 +65,6 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //TODO: 롱클릭 -> 삭제/구매 dialog 등장 -done
-                //TODO: 구매 선택시 디비 반영 -done
-                //TODO: 삭제 선택시 디비에서 삭제 -done
 
                 AlertDialog.Builder dlg = new AlertDialog.Builder(holder.itemView.getContext());
                 dlg.setTitle("책 설정변경").setMessage("선택하세요");
@@ -120,7 +117,6 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
             int bought = (int) objects[1];
             int id = (int) objects[2];
 
-            Log.e("Date",date);
             bookDAO.updateBook(date, bought, id);
             return null;
         }

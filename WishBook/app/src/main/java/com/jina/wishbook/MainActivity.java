@@ -11,7 +11,13 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -48,8 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.black));
+        SpannableStringBuilder str = new SpannableStringBuilder("나의 구매 기록");
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0,8,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        toolbar.setTitle(str);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+
+
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.flagment_container,calendarFragment).commitAllowingStateLoss();
 
@@ -60,13 +72,15 @@ public class MainActivity extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         switch (item.getItemId()) {
                             case R.id.wish:
-                                toolbar.setTitle("나의 위시 목록");
-                                setSupportActionBar(toolbar);
+                                SpannableStringBuilder str = new SpannableStringBuilder("나의 위시 목록");
+                                str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0,8,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                toolbar.setTitle(str);
                                 fragmentTransaction.replace(R.id.flagment_container, wishFragment).commit();
                                 return true;
                             case R.id.home:
-                                toolbar.setTitle("나의 구매 기록");
-                                setSupportActionBar(toolbar);
+                                str = new SpannableStringBuilder("나의 구매 기록");
+                                str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0,8,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                toolbar.setTitle(str);
                                 fragmentTransaction.replace(R.id.flagment_container,calendarFragment).commit();
                                 return true;
                         }
@@ -75,4 +89,5 @@ public class MainActivity extends AppCompatActivity {
 
                 });
     }
+
 }

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
     android:id="@+id/camera_menu"
-    android:icon="@drawable/camera"
-     app:showAsAction="always"
+    android:icon="@drawable/wish"
+    app:showAsAction="always"
+    android:iconTint="@color/theme"
     android:title="camera" />
 </menu>

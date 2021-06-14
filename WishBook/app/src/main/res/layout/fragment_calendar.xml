@@ -12,85 +12,104 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textStyle="normal"
+            android:layout_gravity="center_horizontal"
+            android:text="2021년 6월"
             android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-            android:textColor="@color/black"
-            android:text="2021년 6월"/>
-        <!-- date title -->
+            android:textColor="@color/theme"
+            android:textSize="24dp"
+            android:textStyle="bold" />
 
-
-
-    <!-- days header -->
-    <LinearLayout
-        android:id="@+id/calendar_header"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="일"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="월"/>
+            <LinearLayout
+                android:id="@+id/calendar_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="화"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="일"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="수"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="월"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="목"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="화"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="금"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="수"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:text="토"/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="목"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="금"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="토"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <View
+                android:background="@color/gray"
+                android:layout_width="match_parent"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_height="1dp" />
+        </LinearLayout>
 
     <!-- days view -->
     <GridView
@@ -98,7 +117,6 @@
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:numColumns="7" />
-
     </LinearLayout>
 
 </FrameLayout>

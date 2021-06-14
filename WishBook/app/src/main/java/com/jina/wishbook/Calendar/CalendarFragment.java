@@ -33,8 +33,6 @@ import java.util.List;
 
 
 public class CalendarFragment extends Fragment {
-    //TODO: 구매 선택시 캘린더에 반영 - done
-
     private Toolbar toolbar;
     private GridView gridView;
     private DateAdapter adapter;
@@ -98,8 +96,8 @@ public class CalendarFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu,inflater);
         inflater.inflate(R.menu.menu_camera,menu);
+        Log.e("oncreateoptionsmenu","DD");
     }
-
 
     //카메라 스캔 실행
     @Override
@@ -108,16 +106,20 @@ public class CalendarFragment extends Fragment {
             case R.id.camera_menu:
                 Intent intent = new Intent(this.getActivity(),CameraActivity.class);
                 startActivity(intent);
+                return true;
         }
         return false;
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-//        toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar = getActivity().findViewById(R.id.toolbar);
 //        toolbar.setTitle("여기는 캘린더");
 
         mCalToday = Calendar.getInstance();
@@ -133,7 +135,6 @@ public class CalendarFragment extends Fragment {
                 setCalendarDate(mCal.get(Calendar.MONTH)+1,gridView,books);
             }
         });
-
 
         return view;
     }
@@ -187,9 +188,9 @@ class DateAdapter extends BaseAdapter {
                 ViewText.setText(arrData.get(position).getDay()+"");
             }
 
-            if(arrData.get(position).getDayofweek() == 1)
+            if(arrData.get(position).getDayofweek() == 1 || arrData.get(position).getDayofweek() == 7)
             {
-                ViewText.setTextColor(Color.RED);
+                ViewText.setTextColor(R.color.dark_gray);
             }
             else
             {

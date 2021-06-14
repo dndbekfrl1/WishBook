@@ -1,12 +1,10 @@
 package com.jina.wishbook.WishList;
 
-import android.icu.lang.UCharacter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +20,6 @@ import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,10 +47,8 @@ public class WishFragment extends Fragment {
         db.bookDAO().getAll().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
-                if(books.size() ==0){
-                    initText.setVisibility(View.VISIBLE);
-                }
-                else {
+                Log.e("size",books.size()+"");
+                if(books.size() >=1 ){
                     initText.setVisibility(View.GONE);
                     adapter.setListViewItemList(books);
                 }

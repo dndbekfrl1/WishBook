@@ -67,11 +67,6 @@ public class BottomSheet extends BottomSheetDialogFragment {
     }
 
     public void  insertBookDB(){
-        /*
-          TODO:데이터베이스 저장 -done
-          TODO:사진 저장 -done
-          TODO:위시담기 UI 변경 -done
-         */
         int cover = R.drawable.book1;
 
         Book book = new Book();
@@ -117,10 +112,6 @@ public class BottomSheet extends BottomSheetDialogFragment {
         protected void onPostExecute(ArrayList<String> s) {
             super.onPostExecute(s);
             Log.e("onPostExecute",s.get(0)+s.get(1)+s.get(2));
-
-            /*
-            TODO:webview 링크열기 -- done 근데 느림 ㅅㅂ
-             */
 
             bookTitle = s.get(0);
             bookLink = s.get(1);
