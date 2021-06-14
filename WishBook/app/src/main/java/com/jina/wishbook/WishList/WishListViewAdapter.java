@@ -3,6 +3,7 @@ package com.jina.wishbook.WishList;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,6 +120,7 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
             int bought = (int) objects[1];
             int id = (int) objects[2];
 
+            Log.e("Date",date);
             bookDAO.updateBook(date, bought, id);
             return null;
         }

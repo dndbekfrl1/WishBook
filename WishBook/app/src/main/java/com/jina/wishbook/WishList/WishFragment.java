@@ -44,7 +44,7 @@ public class WishFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new WishListViewAdapter();
-        db.bookDAO().getAll().observe(this, new Observer<List<Book>>() {
+        db.bookDAO().getAll().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
                 Log.e("list size",""+books.size());
