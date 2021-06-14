@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.Database.BookDatabase;
@@ -26,6 +27,7 @@ import java.util.List;
 
 
 public class WishFragment extends Fragment {
+    private TextView initText;
     private RecyclerView recyclerView ;
     private WishListViewAdapter adapter;
 
@@ -36,8 +38,9 @@ public class WishFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_wish, container, false);
+        initText = view.findViewById(R.id.textView_init);
+
         BookDatabase db = BookDatabase.getDatabase(this.getContext());
 
         recyclerView =  view.findViewById(R.id.list_wish);
@@ -47,8 +50,13 @@ public class WishFragment extends Fragment {
         db.bookDAO().getAll().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
-                Log.e("list size",""+books.size());
-                adapter.setListViewItemList(books);
+                if(books.size() ==0){
+                    initText.setVisibility(View.VISIBLE);
+                }
+                else {
+                    initText.setVisibility(View.GONE);
+                    adapter.setListViewItemList(books);
+                }
             }
         });
         recyclerView.setAdapter(adapter);

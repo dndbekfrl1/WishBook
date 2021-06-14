@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
     android:id="@+id/fragment_camera"
+
     tools:context=".Camera.CameraActivity">
 
 

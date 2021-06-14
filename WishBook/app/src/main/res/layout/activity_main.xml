@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -38,6 +39,7 @@
         android:background="@color/white"
         android:layout_width="0dp"
         android:layout_height="0dp"
+
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

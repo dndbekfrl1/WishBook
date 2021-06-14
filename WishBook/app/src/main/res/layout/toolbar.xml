@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar2"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFAC07"
+    android:layout_height="56dp"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
     android:layout_weight="1"
+    app:titleTextAppearance="@style/ToolbarStyle"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <!-- TODO: fontsize 변경하기 -->
 
 </androidx.appcompat.widget.Toolbar>
