@@ -6,11 +6,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
     android:id="@+id/fragment_camera"
-
     tools:context=".Camera.CameraActivity">
 
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:backgroundTint="@color/theme" />
 
-        <SurfaceView
+    <SurfaceView
             android:id="@+id/camera_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,17 +21,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></LinearLayout>
-
     <Button
         android:id="@+id/btn_scan"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="스캔" />
+        android:layout_gravity="center|bottom"
+        android:text="스캔하기" />
 
 
 </FrameLayout>

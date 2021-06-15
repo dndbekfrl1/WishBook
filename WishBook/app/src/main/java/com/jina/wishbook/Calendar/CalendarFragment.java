@@ -21,11 +21,15 @@ import android.widget.GridView;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jina.wishbook.Camera.CameraActivity;
 import com.jina.wishbook.Database.Book;
 import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
+import com.jina.wishbook.WishList.WishListViewAdapter;
 
 import java.util.ArrayList;
 
@@ -43,6 +47,8 @@ public class CalendarFragment extends Fragment {
     private TextView dateTitle;
     private List<Book> curmonthBooks;
     private int[] dateArr;
+    private RecyclerView recyclerView;
+    private BoughtListViewAdapter adapterBoughtList;
 
     public CalendarFragment() {
     }
@@ -53,8 +59,43 @@ public class CalendarFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        toolbar = getActivity().findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        mCalToday = Calendar.getInstance();
+        mCal = Calendar.getInstance();
+        gridView = view.findViewById(R.id.calendar_grid);
+        dateTitle = view.findViewById(R.id.date_title);
+        recyclerView = view.findViewById(R.id.list_bought);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapterBoughtList = new BoughtListViewAdapter();
+
+        BookDatabase db = BookDatabase.getDatabase(this.getContext());
+        db.bookDAO().getBoughtAll().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
+            @Override
+            public void onChanged(List<Book> books) {
+                //calendar ui
+                setCalendarDate(mCal.get(Calendar.MONTH)+1,gridView,books);
+                //bougth list view ui
+                if (curmonthBooks.size()!=0) {
+                    adapterBoughtList.setListViewItemList(curmonthBooks);
+                    recyclerView.setAdapter(adapterBoughtList);
+                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), new LinearLayoutManager(getContext()).getOrientation());
+                    recyclerView.addItemDecoration(dividerItemDecoration);
+                }
+            }
+        });
+
+        return view;
+    }
+
     public void setCalendarDate(int month, GridView gridView, List<Book> books){
-        curmonthBooks = new ArrayList<>();
+        curmonthBooks = new ArrayList<Book>();
         arrData = new ArrayList<CalData>();
         dateArr = new int[32];
 
@@ -79,16 +120,20 @@ public class CalendarFragment extends Fragment {
 
         //달에 맞는 책 추가 & 구매한 날짜 저장
         for(Book book : books){
-           int m = Integer.parseInt(book.date.split("-")[1]);
-           Log.e("m",m+"");
-           if(m == month){
-               curmonthBooks.add(book);
-               dateArr[Integer.parseInt(book.date.split("-")[2])] =1;
+            int m = Integer.parseInt(book.date.split("-")[1]);
+            Log.e("m",m+"");
+            if(m == month){
+                curmonthBooks.add(book);
+                dateArr[Integer.parseInt(book.date.split("-")[2])] =1;
             }
         }
 
         adapter = new DateAdapter(this.getContext(),arrData,dateArr);
         gridView.setAdapter(adapter);
+        Log.e("currentMonthbook",curmonthBooks.size()+"");
+        for(Book book : curmonthBooks){
+            Log.e("book",book.toString()+""+book.bookCover);
+        }
     }
 
     @Override
@@ -109,29 +154,6 @@ public class CalendarFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-        mCalToday = Calendar.getInstance();
-        mCal = Calendar.getInstance();
-        gridView = view.findViewById(R.id.calendar_grid);
-        dateTitle = view.findViewById(R.id.date_title);
-
-        BookDatabase db = BookDatabase.getDatabase(this.getContext());
-        db.bookDAO().getBoughtAll().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
-            @Override
-            public void onChanged(List<Book> books) {
-                Log.e("list size",""+books.size());
-                setCalendarDate(mCal.get(Calendar.MONTH)+1,gridView,books);
-            }
-        });
-
-        return view;
-    }
 }
 
 class DateAdapter extends BaseAdapter {
