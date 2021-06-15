@@ -15,14 +15,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="32dp"
+        android:paddingHorizontal="16dp"
         >
         <Button
             android:id="@+id/btn_add_wish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/point"
+            android:background="@drawable/btn_shape"
             android:textStyle="bold"
+            android:textColor="@color/point"
             android:text="위시담기" />
     </LinearLayout>
 

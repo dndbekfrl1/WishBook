@@ -60,6 +60,9 @@ public class BottomSheet extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 insertBookDB();
                 addWish.setText("위시에 담았습니다.");
+                addWish.setBackgroundColor(getResources().getColor(R.color.point));
+                addWish.setTextColor(getResources().getColor(R.color.white));
+                addWish.setBackground(getResources().getDrawable(R.drawable.btn_shape));
             }
         });
 

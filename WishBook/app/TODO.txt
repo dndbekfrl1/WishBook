@@ -17,7 +17,7 @@ TODO: 색상 변경 done
  - 그레이 done
 
 TODO: 카메라 화면
- - 스캔하기 버튼 변경
+ - 스캔하기 버튼 변경 done
  - 웹뷰 UI 밀려남 수정
 
 TODO: 캘린더 화면 done
