@@ -115,10 +115,19 @@
         <GridView
         android:id="@+id/calendar_grid"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
         android:numColumns="7" />
 
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:paddingTop="2dp"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="2dp"
+            android:layout_height="1dp" />
+
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -126,9 +135,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="내가 구매한 책"
+                android:text="이번달 구매한 책"
                 android:textStyle="bold"
                 android:textSize="24dp"
+                android:layout_marginBottom="8dp"
                 android:textColor="@color/black"/>
 
             <androidx.recyclerview.widget.RecyclerView

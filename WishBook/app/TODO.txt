@@ -16,9 +16,9 @@ TODO: 색상 변경 done
  - 블랙 done
  - 그레이 done
 
-TODO: 카메라 화면
+TODO: 카메라 화면 done
  - 스캔하기 버튼 변경 done
- - 웹뷰 UI 밀려남 수정
+ - 웹뷰 UI 밀려남 수정 못해
 
 TODO: 캘린더 화면 done
  - 이달 구매 목록 기능 추가 done

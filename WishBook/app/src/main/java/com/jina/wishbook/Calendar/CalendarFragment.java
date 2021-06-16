@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,8 +72,8 @@ public class CalendarFragment extends Fragment {
         gridView = view.findViewById(R.id.calendar_grid);
         dateTitle = view.findViewById(R.id.date_title);
         recyclerView = view.findViewById(R.id.list_bought);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),3);
+        recyclerView.setLayoutManager(gridLayoutManager);
         adapterBoughtList = new BoughtListViewAdapter();
 
         BookDatabase db = BookDatabase.getDatabase(this.getContext());

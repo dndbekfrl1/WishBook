@@ -14,13 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="아직 등록된 책이 없습니다."
+        android:textSize="20dp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.50" />
-
+        android:layout_gravity="center_vertical|center_horizontal"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_wish"
         android:scrollbarFadeDuration="0"

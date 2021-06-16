@@ -14,19 +14,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="잠시만 기다려 주세요."
-        android:textColor="@color/theme"
-        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="20sp" />
-
-
-
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:indeterminateTint="@color/theme"
+        android:indeterminateTint="@color/black"
          />
 
 </RelativeLayout>

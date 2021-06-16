@@ -65,8 +65,9 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
             public boolean onLongClick(View v) {
 
                 AlertDialog.Builder dlg = new AlertDialog.Builder(holder.itemView.getContext());
+
                 dlg.setTitle("책 설정변경").setMessage("선택하세요");
-                dlg.setPositiveButton("구매했습니당><", new DialogInterface.OnClickListener() {
+                dlg.setPositiveButton("구매완료", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Date date = new Date();
@@ -77,7 +78,7 @@ public class WishListViewAdapter extends RecyclerView.Adapter<WishListViewAdapte
                         new updateAsyncTask(db.bookDAO()).execute(today,bought,bookId);
                     }
                 });
-                dlg.setNegativeButton("삭제할래용", new DialogInterface.OnClickListener() {
+                dlg.setNegativeButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         new deletetAsyncTask(db.bookDAO()).execute(bookId);
