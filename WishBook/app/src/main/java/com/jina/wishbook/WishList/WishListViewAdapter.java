@@ -17,7 +17,6 @@ import com.jina.wishbook.Database.BookDAO;
 import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -122,7 +121,6 @@ public class CalendarFragment extends Fragment {
         //달에 맞는 책 추가 & 구매한 날짜 저장
         for(Book book : books){
             int m = Integer.parseInt(book.date.split("-")[1]);
-            Log.e("m",m+"");
             if(m == month){
                 curmonthBooks.add(book);
                 dateArr[Integer.parseInt(book.date.split("-")[2])] =1;
@@ -131,10 +129,6 @@ public class CalendarFragment extends Fragment {
 
         adapter = new DateAdapter(this.getContext(),arrData,dateArr);
         gridView.setAdapter(adapter);
-        Log.e("currentMonthbook",curmonthBooks.size()+"");
-        for(Book book : curmonthBooks){
-            Log.e("book",book.toString()+""+book.bookCover);
-        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.jina.wishbook.Camera;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.jina.wishbook.Database.BookDatabase;
 import com.jina.wishbook.R;
 
 import java.util.ArrayList;
-
 
 public class BottomSheet extends BottomSheetDialogFragment {
     static WebView webView;
@@ -59,10 +57,10 @@ public class BottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 insertBookDB();
-                addWish.setText("위시에 담았습니다.");
+                addWish.setBackground(getResources().getDrawable(R.drawable.btn_shape));
                 addWish.setBackgroundColor(getResources().getColor(R.color.point));
                 addWish.setTextColor(getResources().getColor(R.color.white));
-                addWish.setBackground(getResources().getDrawable(R.drawable.btn_shape));
+                addWish.setText("위시에 담았습니다.");
             }
         });
 
@@ -114,7 +112,6 @@ public class BottomSheet extends BottomSheetDialogFragment {
         @Override
         protected void onPostExecute(ArrayList<String> s) {
             super.onPostExecute(s);
-            Log.e("onPostExecute",s.get(0)+s.get(1)+s.get(2));
 
             bookTitle = s.get(0);
             bookLink = s.get(1);

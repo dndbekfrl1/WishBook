@@ -69,7 +69,6 @@ public class CameraActivity extends AppCompatActivity  {
                     public void onPictureTaken(byte[] data, Camera camera) {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
                         uploadImage(bitmap);
-                        Log.e("DD","ㅎㅎ");
                     }
                 });
             }
@@ -82,7 +81,6 @@ public class CameraActivity extends AppCompatActivity  {
             // scale the image to save on bandwidth
             callCloudVision(bitmap);
         } else {
-            Log.d(TAG, "Image picker gave us a null image.");
         }
     }
 
@@ -206,7 +204,6 @@ public class CameraActivity extends AppCompatActivity  {
             CameraActivity activity = mActivityWeakReference.get();
             if (activity != null && !activity.isFinishing()) {
                 asyncDialog.dismiss();
-                Log.e("done", result);
 
                 bottomSheet.show(getSupportFragmentManager(),"DD");
                 Bundle bundle = new Bundle();
