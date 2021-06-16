@@ -29,7 +29,8 @@
             android:background="@drawable/btn_shape"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="스캔하기" />
+            android:text="스캔하기"
+            android:layout_marginBottom="16dp"/>
     </FrameLayout>
 
 
